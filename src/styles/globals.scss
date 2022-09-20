@@ -5,3 +5,20 @@
 }
 
 // TODO
+
+:root {
+  --Background: #1A1D23;
+  --Highlight: #FF57B2;
+  --Heading: #F8F8F8;
+  --Info: #BBBBBB;
+  --Body: #D7D7D7;
+}
+
+body {
+  background-color: var(--Background);
+}
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+

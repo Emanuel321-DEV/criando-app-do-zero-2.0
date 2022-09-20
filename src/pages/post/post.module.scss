@@ -1,1 +1,50 @@
 // TODO
+
+.image {
+    width: 1440px;
+    height: 400px;
+    max-width: 100%;
+}
+
+section.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 700px;
+    margin: 40px auto;
+
+
+    h1 {
+        color: var(--Body);
+    }
+
+    section.about {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: var(--Info);
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    }
+
+    section.group_content {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        article.group{
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+
+            p {
+                color: var(--Body);
+            }
+        }
+    }
+}

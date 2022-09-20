@@ -1,1 +1,59 @@
 // TODO
+
+.section_articles {
+    width: 700px;
+    margin: 20px auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+
+    @media (max-width: 800px){
+        width: 90%;
+    }
+
+
+    article {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        cursor: pointer;
+        
+        h2 {
+            color: var(--Heading);
+        }
+        
+        p {
+            color: var(--Body);
+        }
+        
+        .section_author_date {
+            display: flex;
+            width: 350px;
+            justify-content: space-between;
+
+            color: var(--Body);
+
+            div {
+                display: flex;
+                gap: 10px;
+            }
+
+            @media (max-width: 700px){
+                width: 95%;
+            }
+        }
+
+    }
+
+    button {
+        background-color: transparent;
+        border: transparent;
+        color: var(--Highlight);
+        cursor: pointer;
+
+        font-weight: bold;
+        width: 150px;
+    }
+
+}
