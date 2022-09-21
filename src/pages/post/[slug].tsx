@@ -5,8 +5,11 @@ import Header from '../../components/Header';
 
 import { getPrismicClient } from '../../services/prismic';
 
+import { PrismicRichText } from '@prismicio/react'
+
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
+import { asHTML } from '@prismicio/helpers';
 
 interface Post {
   first_publication_date: string | null;
@@ -32,6 +35,7 @@ interface PostProps {
 
  export default function Post({ post }: PostProps) {
     // TODO
+
 
     return (
       <>
@@ -64,14 +68,15 @@ interface PostProps {
 
 
               </section>
-
               <section className={styles.group_content}>
                 {post.data.content.map(group => (
                     <article className={styles.group}>
                       <h1>{group.heading}</h1>
-                      <p>
-                        {group.body}
-                      </p>
+                      <div 
+                        dangerouslySetInnerHTML={{
+                          __html: RichText.asHtml(group.body)
+                        }}
+                      />
                     </article>
                 ))}
               </section>
@@ -111,6 +116,8 @@ interface PostProps {
 
   const { data } = response;
 
+  console.log("ESTE EH DATA", data)
+
   const post = {
     first_publication_date: response.first_publication_date,
     data: {
@@ -124,11 +131,13 @@ interface PostProps {
       content: data.content.map(group => {
         return {
           heading: group.heading,
-          body: group.body
+          body: [...group.body]
         }
       })
     }
   }
+
+
   
     // TODO
     return {

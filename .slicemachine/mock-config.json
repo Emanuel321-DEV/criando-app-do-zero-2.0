@@ -4,8 +4,8 @@
       "content": {
         "body": {
           "config": {
-            "patternType": "PARAGRAPH",
-            "blocks": 1
+            "patternType": "STORY",
+            "blocks": 3
           }
         }
       }
