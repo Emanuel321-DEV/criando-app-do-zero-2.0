@@ -49,7 +49,8 @@ interface PostProps {
   
       const words = currentValue.body.map(item => item.text.split(' ').length);
   
-      words.map(word => (acc += word));
+      words.map(word => 
+        (acc += word));
   
       return acc;
     }, 0);
