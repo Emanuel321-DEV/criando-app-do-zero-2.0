@@ -9,7 +9,9 @@ import { PrismicRichText } from '@prismicio/react'
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
-import { asHTML } from '@prismicio/helpers';
+import { ptBR } from 'date-fns/locale';
+import { format } from 'date-fns';
+import router, { useRouter } from 'next/router';
 
 interface Post {
   first_publication_date: string | null;
@@ -36,6 +38,23 @@ interface PostProps {
  export default function Post({ post }: PostProps) {
     // TODO
 
+    const { isFallback } = useRouter();
+
+    if(isFallback){
+      return <h1>Carregando...</h1>
+    }
+
+    const countWords = post.data.content.reduce((acc, currentValue) => {
+      acc += currentValue.heading.split(' ').length;
+  
+      const words = currentValue.body.map(item => item.text.split(' ').length);
+  
+      words.map(word => (acc += word));
+  
+      return acc;
+    }, 0);
+  
+    const timeRead = Math.ceil(countWords / 200);
 
     return (
       <>
@@ -45,14 +64,14 @@ interface PostProps {
               <h1>{post.data.title}</h1>
               <section className={styles.about}>
                 <div>
-                  <FiCalendar />
+                  <FiCalendar fontSize={20}/>
                   <time dateTime={post.first_publication_date} >
                     {post.first_publication_date}
                   </time>
                 </div>
 
                 <div>
-                  <FiUser />
+                  <FiUser fontSize={20}/>
                   <span>
                     {post.data.author}
                   </span>
@@ -60,9 +79,9 @@ interface PostProps {
 
 
                 <div>
-                  <FiClock />
+                  <FiClock fontSize={20}/>
                   <span>
-                    10 min
+                    {timeRead} min
                   </span>
                 </div>
 
@@ -70,8 +89,8 @@ interface PostProps {
               </section>
               <section className={styles.group_content}>
                 {post.data.content.map(group => (
-                    <article className={styles.group}>
-                      <h1>{group.heading}</h1>
+                    <article key={group.heading} className={styles.group}>
+                      <h2>{group.heading}</h2>
                       <div 
                         dangerouslySetInnerHTML={{
                           __html: RichText.asHtml(group.body)
@@ -82,8 +101,6 @@ interface PostProps {
               </section>
             </section>
       </>
-
-
     )
  }
 
@@ -107,22 +124,19 @@ interface PostProps {
    
  };
 
- export const getStaticProps = async ({ params }) => {
+ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const { slug } = params;
   
   const prismic = getPrismicClient({});
-  const response = await prismic.getByUID('posts', String(slug), {});
+  const response = await prismic.getByUID('posts', String(slug), {}); // Busca um post no prismic pelo slug
 
   const { data } = response;
 
-  console.log("ESTE EH DATA", data)
-
-  const post = {
-    first_publication_date: response.first_publication_date,
+  const post: Post = {
+    first_publication_date: format(new Date(response.first_publication_date), 'dd MMM yyyy', { locale: ptBR}),
     data: {
       title: data.title,
-      subtitle: data.subtitle,
       author: data.author,
       banner: {
         url: data.banner.url,
@@ -131,18 +145,16 @@ interface PostProps {
       content: data.content.map(group => {
         return {
           heading: group.heading,
-          body: [...group.body]
+          body: group.body
         }
       })
     }
   }
-
-
   
     // TODO
     return {
       props: {
         post
-      }
+      }, revalidate: 60 * 60 // 1 hour
     }
  };

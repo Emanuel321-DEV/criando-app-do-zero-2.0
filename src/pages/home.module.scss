@@ -16,7 +16,7 @@
     article {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
         cursor: pointer;
         
         h2 {
@@ -30,7 +30,8 @@
         .section_author_date {
             display: flex;
             width: 350px;
-            justify-content: space-between;
+            gap: 35px;
+            margin-top: 10px;
 
             color: var(--Body);
 

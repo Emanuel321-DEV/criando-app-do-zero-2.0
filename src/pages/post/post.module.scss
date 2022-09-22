@@ -2,8 +2,18 @@
 
 .image {
     width: 1440px;
-    height: 400px;
+    height: 380px;
     max-width: 100%;
+    
+    @media (max-width: 890px){
+        max-height: 30vh;
+    }
+
+    @media (max-width: 700px){
+        width: 100%;
+        display: none;
+        background-color: aqua;
+    }
 }
 
 section.content {
@@ -11,18 +21,34 @@ section.content {
     flex-direction: column;
     gap: 20px;
     width: 700px;
-    margin: 40px auto;
+    margin: 30px auto;
+
+    @media (max-width: 800px){
+        width: 90%;
+    }
 
 
     h1 {
-        color: var(--Body);
+        color: var(--Heading);
+        font-size: 48px;
+    }
+
+    h2 {
+        color: var(--Heading);
+        font-size: 36px;
     }
 
     section.about {
         display: flex;
         align-items: center;
-        gap: 15px;
         color: var(--Info);
+        width: 470px;
+        gap: 40px;
+
+        @media(max-width: 700px){
+            width: 80%;
+            gap: 10;
+        }
 
         div {
             display: flex;
@@ -34,16 +60,19 @@ section.content {
     section.group_content {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 60px;
+        margin-top: 40px;
+
 
         article.group{
             display: flex;
             flex-direction: column;
 
-            gap: 10px;
+            gap: 35px;
 
             p {
                 color: var(--Body);
+                margin-bottom: 25px;
             }
         }
     }

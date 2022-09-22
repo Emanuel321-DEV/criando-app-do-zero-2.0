@@ -5,7 +5,6 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { getPrismicClient } from '../services/prismic';
 import { format } from 'date-fns';
 
-import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 import { useState } from 'react';
 
@@ -105,7 +104,7 @@ interface HomeProps {
                 </Link>
               )
             )}
-            {next_page ? <button className={styles.load_more_posts} onClick={() => handleNextPage()}> Clique para ver mais </button> : ''}
+            {next_page ? <button className={styles.load_more_posts} onClick={() => handleNextPage()}> Carregar mais posts </button> : ''}
           </section>
         </>
 

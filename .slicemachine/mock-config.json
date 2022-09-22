@@ -9,6 +9,22 @@
           }
         }
       }
+    },
+    "teste": {
+      "content": {
+        "title": {
+          "config": {
+            "patternType": "PARAGRAPH",
+            "blocks": 1
+          }
+        },
+        "body": {
+          "config": {
+            "patternType": "PARAGRAPH",
+            "blocks": 1
+          }
+        }
+      }
     }
   }
 }
