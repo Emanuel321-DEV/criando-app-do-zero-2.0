@@ -38,6 +38,7 @@ interface HomeProps {
     const [ posts, setPosts ] = useState(postsPagination.results);
     const [ next_page, setNextPage ] = useState(postsPagination.next_page);
 
+    // Faz a busca de mais posts do prismic, caso o cliente solicite.
     async function handleNextPage () {
       const nextPage = await fetch(next_page);
 
@@ -47,9 +48,7 @@ interface HomeProps {
 
         return {
           uid: post.uid,
-          first_publication_date: format(new Date(post.first_publication_date), "dd MMM yyyy", { 
-            locale: ptBR
-          }),
+          first_publication_date: post.first_publication_date,
           data:  { 
             title: post.data.title,
             subtitle: post.data.subtitle,
@@ -89,7 +88,7 @@ interface HomeProps {
 
                       <FiCalendar />
                       <time dateTime={post.first_publication_date} >
-                        {post.first_publication_date}
+                        {format(new Date(post.first_publication_date), 'dd MMM yyyy', { locale: ptBR })}
                       </time>
                     
                     </div>
@@ -113,15 +112,13 @@ interface HomeProps {
 
  export const getStaticProps: GetStaticProps = async () => {
     const prismic = getPrismicClient({});
-    const postsResponse = await prismic.getByType('posts', { pageSize: 1 });
+    const postsResponse = await prismic.getByType('posts', { pageSize: 1 }); // Busca as publicacoes no prismic do tipo 'posts', e exibe de um em um em tela( pageSize ).  
     
     const posts = postsResponse.results.map((post): Post => {
 
       return {
         uid: post.uid,
-        first_publication_date: format(new Date(post.first_publication_date), "dd MMM yyyy", { 
-          locale: ptBR
-        }),
+        first_publication_date: post.first_publication_date,
         data:  { 
           title: post.data.title,
           subtitle: post.data.subtitle,
@@ -141,6 +138,6 @@ interface HomeProps {
       props: {
         postsPagination
       }, 
-      revalidate: 30 // 30 seconds 
+      revalidate: 60 * 60 // Refaz a busca de todos o posts no prismic a cada 1 hora
     }
  };

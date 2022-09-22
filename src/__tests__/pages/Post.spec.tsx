@@ -61,6 +61,7 @@ const mockedGetByUIDReturn = {
     subtitle: 'Pensando em sincronização em vez de ciclos de vida',
     author: 'Joseph Oliveira',
     banner: {
+      alt: 'Texto alternativo',
       url:
         'https://images.prismic.io/criando-projeto-do-zero/95494d57-eee2-4adb-9883-befa9829abca_christopher-gower-m_HRfLhgABo-unsplash.jpg?auto=compress,format',
     },
